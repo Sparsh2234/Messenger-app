@@ -18,7 +18,7 @@ struct messager_appApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MessagesView()
         }
     }
     

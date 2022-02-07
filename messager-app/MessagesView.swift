@@ -14,6 +14,11 @@ struct MessagesView: View {
     
     let currentUser = "test1"
     
+    init() {
+        amp.getMessages()
+        amp.observeMessages()
+    }
+    
     
     var body: some View {
         VStack {
@@ -21,7 +26,12 @@ struct MessagesView: View {
                 LazyVStack {
                     
                     ForEach(amp.messages) { message in
-                        MessageRow(message: message, isCurrentUser: message.senderName == currentUser)
+                    
+                        MessageRow(
+                            message: message,
+                            isCurrentUser: message.senderName == currentUser
+                        )
+                        
                     }
                     
                 }
@@ -36,6 +46,11 @@ struct MessagesView: View {
     
     func didTapSend() {
         print(text)
+        
+        let message = Message(senderName: currentUser, body: text, creationDate: .now())
+        
+        amp.send(message)
+        
         text.removeAll()
     }
 }
